@@ -1,5 +1,8 @@
 package com.jolpai.wordkeeper.activity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -7,6 +10,10 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import com.astuetz.PagerSlidingTabStrip;
 import com.jolpai.wordkeeper.R;
@@ -19,6 +26,7 @@ public class Home extends AppCompatActivity {
     private PagerSlidingTabStrip tab;
     private ViewPager pager;
     private MyPagerAdapter adapter;
+    private FloatingActionButton floatingButtonAddNew;
 
     private int toolbarColor,toolbarTextColor,white,amber_500,green_500;
 
@@ -27,9 +35,25 @@ public class Home extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        initialize();
+
+
+
+
+    }
+
+    public void initialize(){
         white=Home.this.getResources().getColor(R.color.white);
         amber_500=Home.this.getResources().getColor(R.color.amber_500);
         green_500=Home.this.getResources().getColor(R.color.green_500);
+
+        floatingButtonAddNew = (FloatingActionButton)findViewById(R.id.floatingButtonAddNew);
+        floatingButtonAddNew.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showAddNewDialog();
+            }
+        });
 
         toolbarColor=green_500;
         toolbarTextColor=white;
@@ -52,10 +76,50 @@ public class Home extends AppCompatActivity {
         tab.setUnderlineColor(white);
         tab.setUnderlineHeight(0);
         tab.setIndicatorHeight(10);
+    }
 
+    private void showAddNewDialog() {
+        AlertDialog.Builder dialog = new AlertDialog.Builder(Home.this);
+        // Get the layout inflater
 
+        View v = initializeDialogView();
 
+        dialog.setView(v)
+                // Add action buttons
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        // sign in the user ...
+                        //sendCertificateStatementData();
+                    }
+                })
+                .setNegativeButton("DISCARD", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                       // txtDetail.setText("");
+                    }
+                })
+                .setTitle("");
+        dialog.create().show();
+    }
 
+    private View initializeDialogView() {
+        EditText editTextWord,editTextMeaning;
+        TextView txtWord,txtMeaning;
+
+        LayoutInflater inflater = LayoutInflater.from(Home.this);
+
+        // Inflate and set the layout for the dialog
+        // Pass null as the parent view because its going in the dialog layout
+        View v = inflater.inflate(R.layout.dialog_add_new, null);
+
+        editTextWord=(EditText)v.findViewById(R.id.editTextWord);
+        editTextMeaning=(EditText)v.findViewById(R.id.editTextMeaning);
+        txtWord=(TextView)v.findViewById(R.id.txtWord);
+        txtMeaning=(TextView)v.findViewById(R.id.txtMeaning);
+
+        //editTextWord.setOnT
+
+        return v;
     }
 
     public static class MyPagerAdapter extends FragmentPagerAdapter {
