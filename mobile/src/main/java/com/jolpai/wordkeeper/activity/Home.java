@@ -1,7 +1,12 @@
 package com.jolpai.wordkeeper.activity;
 
+
+
 import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.provider.Settings;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -12,8 +17,10 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.astuetz.PagerSlidingTabStrip;
 import com.jolpai.wordkeeper.R;
@@ -21,14 +28,20 @@ import com.jolpai.wordkeeper.fragment.All;
 import com.jolpai.wordkeeper.fragment.Memorized;
 import com.jolpai.wordkeeper.fragment.New;
 
+import io.realm.Realm;
+
 public class Home extends AppCompatActivity {
     FragmentPagerAdapter pagerAdapter;
     private PagerSlidingTabStrip tab;
     private ViewPager pager;
     private MyPagerAdapter adapter;
     private FloatingActionButton floatingButtonAddNew;
+    private EditText editTextWord,editTextMeaning;
+    private TextView txtWord,txtMeaning;
 
     private int toolbarColor,toolbarTextColor,white,amber_500,green_500;
+
+    private Realm realm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,12 +50,17 @@ public class Home extends AppCompatActivity {
 
         initialize();
 
+    }
 
-
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        realm.close(); 
     }
 
     public void initialize(){
+        realm =Realm.getDefaultInstance();
+
         white=Home.this.getResources().getColor(R.color.white);
         amber_500=Home.this.getResources().getColor(R.color.amber_500);
         green_500=Home.this.getResources().getColor(R.color.green_500);
@@ -76,35 +94,48 @@ public class Home extends AppCompatActivity {
         tab.setUnderlineColor(white);
         tab.setUnderlineHeight(0);
         tab.setIndicatorHeight(10);
+
+
     }
 
     private void showAddNewDialog() {
-        AlertDialog.Builder dialog = new AlertDialog.Builder(Home.this);
-        // Get the layout inflater
 
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
         View v = initializeDialogView();
+        builder.setView(v);
+        builder.setPositiveButton("Save",null);
+        builder.setNegativeButton("Cancel",null);
+        final AlertDialog dialog = builder.create();
+        dialog.show();
+        //Overriding the handler immediately after show is probably a better approach than OnShowListener as described below
+        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                Boolean wantToCloseDialog = saveDate();
+                //Do stuff, possibly set wantToCloseDialog to true then...
+                if(wantToCloseDialog)
+                    dialog.dismiss();
+                //else dialog stays open. Make sure you have an obvious way to close the dialog especially if you set cancellable to false.
+            }
+        });
 
-        dialog.setView(v)
-                // Add action buttons
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int id) {
-                        // sign in the user ...
-                        //sendCertificateStatementData();
-                    }
-                })
-                .setNegativeButton("DISCARD", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                       // txtDetail.setText("");
-                    }
-                })
-                .setTitle("");
-        dialog.create().show();
+    }
+
+    private boolean saveDate() {
+        if(editTextWord.getText().toString().equalsIgnoreCase("")){
+            Toast.makeText(Home.this,"Word is missing",Toast.LENGTH_SHORT).show();
+            return false;
+        }else if(editTextMeaning.getText().toString().equalsIgnoreCase("")){
+            Toast.makeText(Home.this,"Meaning is missing",Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        return true;
     }
 
     private View initializeDialogView() {
-        EditText editTextWord,editTextMeaning;
-        TextView txtWord,txtMeaning;
 
         LayoutInflater inflater = LayoutInflater.from(Home.this);
 

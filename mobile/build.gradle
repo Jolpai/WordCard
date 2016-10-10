@@ -1,7 +1,7 @@
 import java.util.regex.Pattern
 
 apply plugin: 'com.android.application'
-
+apply plugin: 'realm-android'
 android {
     compileSdkVersion 24
     buildToolsVersion "24.0.2"
@@ -39,4 +39,7 @@ dependencies {
     compile 'com.android.support:design:24.2.1'
 
     compile 'com.astuetz:pagerslidingtabstrip:1.0.1'
+    compile 'com.facebook.stetho:stetho:1.4.1'
+
+
 }
