@@ -1,4 +1,4 @@
-package com.jolpai.wordkeeper.activity;
+package com.jolpai.wordkeeper.view.activity;
 
 import android.annotation.SuppressLint;
 import android.support.v7.app.ActionBar;

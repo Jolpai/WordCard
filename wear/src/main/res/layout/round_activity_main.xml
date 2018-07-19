@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.jolpai.wordkeeper.activity.Splash"
+    tools:context="Activity_Splash"
     tools:deviceIds="wear_round">
 
     <TextView

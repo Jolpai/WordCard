@@ -10,7 +10,7 @@ import io.realm.Realm;
  * Created by Tanim reja on 10/10/2016.
  */
 
-public class MyApplication extends Application {
+public class WordCardApp extends Application {
 
     public void onCreate() {
         super.onCreate();

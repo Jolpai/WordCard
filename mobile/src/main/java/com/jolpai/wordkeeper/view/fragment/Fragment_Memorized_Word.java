@@ -1,4 +1,4 @@
-package com.jolpai.wordkeeper.fragment;
+package com.jolpai.wordkeeper.view.fragment;
 
 import android.content.Context;
 import android.net.Uri;
@@ -13,12 +13,12 @@ import com.jolpai.wordkeeper.R;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link Memorized.OnFragmentInteractionListener} interface
+ * {@link Fragment_Memorized_Word.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link Memorized#newInstance} factory method to
+ * Use the {@link Fragment_Memorized_Word#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Memorized extends Fragment {
+public class Fragment_Memorized_Word extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -30,7 +30,7 @@ public class Memorized extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public Memorized() {
+    public Fragment_Memorized_Word() {
         // Required empty public constructor
     }
 
@@ -43,8 +43,8 @@ public class Memorized extends Fragment {
      * @return A new instance of fragment Memorized.
      */
     // TODO: Rename and change types and number of parameters
-    public static Memorized newInstance(int param1, String param2) {
-        Memorized fragment = new Memorized();
+    public static Fragment_Memorized_Word newInstance(int param1, String param2) {
+        Fragment_Memorized_Word fragment = new Fragment_Memorized_Word();
         Bundle args = new Bundle();
         args.putInt(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);

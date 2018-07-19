@@ -1,12 +1,8 @@
-package com.jolpai.wordkeeper.activity;
+package com.jolpai.wordkeeper.view.activity;
 
 
 
 import android.app.AlertDialog;
-import android.app.AlertDialog.Builder;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.provider.Settings;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -17,20 +13,19 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.astuetz.PagerSlidingTabStrip;
 import com.jolpai.wordkeeper.R;
-import com.jolpai.wordkeeper.fragment.All;
-import com.jolpai.wordkeeper.fragment.Memorized;
-import com.jolpai.wordkeeper.fragment.New;
+import com.jolpai.wordkeeper.view.fragment.Fragment_All_Word;
+import com.jolpai.wordkeeper.view.fragment.Fragment_Memorized_Word;
+import com.jolpai.wordkeeper.view.fragment.Fragment_New_Word;
 
 import io.realm.Realm;
 
-public class Home extends AppCompatActivity {
+public class Activity_My_Word extends AppCompatActivity {
     FragmentPagerAdapter pagerAdapter;
     private PagerSlidingTabStrip tab;
     private ViewPager pager;
@@ -61,9 +56,9 @@ public class Home extends AppCompatActivity {
     public void initialize(){
         realm =Realm.getDefaultInstance();
 
-        white=Home.this.getResources().getColor(R.color.white);
-        amber_500=Home.this.getResources().getColor(R.color.amber_500);
-        green_500=Home.this.getResources().getColor(R.color.green_500);
+        white=Activity_My_Word.this.getResources().getColor(R.color.white);
+        amber_500=Activity_My_Word.this.getResources().getColor(R.color.amber_500);
+        green_500=Activity_My_Word.this.getResources().getColor(R.color.green_500);
 
         floatingButtonAddNew = (FloatingActionButton)findViewById(R.id.floatingButtonAddNew);
         floatingButtonAddNew.setOnClickListener(new View.OnClickListener() {
@@ -125,10 +120,10 @@ public class Home extends AppCompatActivity {
 
     private boolean saveDate() {
         if(editTextWord.getText().toString().equalsIgnoreCase("")){
-            Toast.makeText(Home.this,"Word is missing",Toast.LENGTH_SHORT).show();
+            Toast.makeText(Activity_My_Word.this,"Word is missing",Toast.LENGTH_SHORT).show();
             return false;
         }else if(editTextMeaning.getText().toString().equalsIgnoreCase("")){
-            Toast.makeText(Home.this,"Meaning is missing",Toast.LENGTH_SHORT).show();
+            Toast.makeText(Activity_My_Word.this,"Meaning is missing",Toast.LENGTH_SHORT).show();
             return false;
         }
 
@@ -137,7 +132,7 @@ public class Home extends AppCompatActivity {
 
     private View initializeDialogView() {
 
-        LayoutInflater inflater = LayoutInflater.from(Home.this);
+        LayoutInflater inflater = LayoutInflater.from(Activity_My_Word.this);
 
         // Inflate and set the layout for the dialog
         // Pass null as the parent view because its going in the dialog layout
@@ -170,11 +165,11 @@ public class Home extends AppCompatActivity {
 
             switch (position){
                 case 0:
-                    return New.newInstance(0,"NEW WORD");
+                    return Fragment_New_Word.newInstance(0,"NEW WORD");
                 case 1:
-                    return All.newInstance(1,"ALL");
+                    return Fragment_All_Word.newInstance(1,"ALL");
                 case 2:
-                    return Memorized.newInstance(2,"MEMORIZED");
+                    return Fragment_Memorized_Word.newInstance(2,"MEMORIZED");
                 default:
                     return null;
             }

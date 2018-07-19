@@ -1,18 +1,13 @@
-package com.jolpai.wordkeeper.activity;
+package com.jolpai.wordkeeper.view.activity;
 
-import android.app.ActionBar;
-import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
-import android.view.ViewParent;
 
 import com.jolpai.wordkeeper.R;
 
-public class Splash extends AppCompatActivity {
+public class Activity_Splash extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,7 +18,7 @@ public class Splash extends AppCompatActivity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent = new Intent(Splash.this, Home.class);
+                Intent intent = new Intent(Activity_Splash.this, Activity_My_Word.class);
                 startActivity(intent);
                 finish();
             }

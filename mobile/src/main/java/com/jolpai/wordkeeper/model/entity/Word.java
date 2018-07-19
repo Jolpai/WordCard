@@ -1,4 +1,4 @@
-package com.jolpai.wordkeeper.model;
+package com.jolpai.wordkeeper.model.entity;
 
 import java.util.Date;
 
