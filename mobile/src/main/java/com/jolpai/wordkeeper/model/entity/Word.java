@@ -1,7 +1,5 @@
 package com.jolpai.wordkeeper.model.entity;
 
-import java.util.Date;
-
 import io.realm.RealmObject;
 import io.realm.annotations.Index;
 import io.realm.annotations.PrimaryKey;
@@ -13,7 +11,7 @@ import io.realm.annotations.PrimaryKey;
 public class Word extends RealmObject{
     private @PrimaryKey int  id;
     private @Index String word;
-    private String meaning;
+    private @Index String meaning;
     private String voiceIdOne;
     private String voiceIdTwo;
     private String ImageId;

@@ -1,15 +1,14 @@
 package com.jolpai.wordkeeper.view.activity;
 
 
-
 import android.app.AlertDialog;
+import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,13 +18,16 @@ import android.widget.Toast;
 
 import com.astuetz.PagerSlidingTabStrip;
 import com.jolpai.wordkeeper.R;
+import com.jolpai.wordkeeper.contract.C_My_Word;
+import com.jolpai.wordkeeper.model.entity.Word;
+import com.jolpai.wordkeeper.presenter.P_My_Word;
 import com.jolpai.wordkeeper.view.fragment.Fragment_All_Word;
 import com.jolpai.wordkeeper.view.fragment.Fragment_Memorized_Word;
 import com.jolpai.wordkeeper.view.fragment.Fragment_New_Word;
 
 import io.realm.Realm;
 
-public class Activity_My_Word extends AppCompatActivity {
+public class Activity_My_Word extends AppCompatActivity implements C_My_Word.View{
     FragmentPagerAdapter pagerAdapter;
     private PagerSlidingTabStrip tab;
     private ViewPager pager;
@@ -37,6 +39,8 @@ public class Activity_My_Word extends AppCompatActivity {
     private int toolbarColor,toolbarTextColor,white,amber_500,green_500;
 
     private Realm realm;
+
+    private P_My_Word presenter ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +59,7 @@ public class Activity_My_Word extends AppCompatActivity {
 
     public void initialize(){
         realm =Realm.getDefaultInstance();
+        presenter = new P_My_Word(Activity_My_Word.this);
 
         white=Activity_My_Word.this.getResources().getColor(R.color.white);
         amber_500=Activity_My_Word.this.getResources().getColor(R.color.amber_500);
@@ -119,15 +124,20 @@ public class Activity_My_Word extends AppCompatActivity {
     }
 
     private boolean saveDate() {
-        if(editTextWord.getText().toString().equalsIgnoreCase("")){
+
+        Word word = new Word();
+        word.setWord(editTextWord.getText().toString());
+        word.setMeaning(editTextMeaning.getText().toString());
+        return presenter.saveWord(word);
+
+        /*if(editTextWord.getText().toString().equalsIgnoreCase("")){
             Toast.makeText(Activity_My_Word.this,"Word is missing",Toast.LENGTH_SHORT).show();
             return false;
         }else if(editTextMeaning.getText().toString().equalsIgnoreCase("")){
             Toast.makeText(Activity_My_Word.this,"Meaning is missing",Toast.LENGTH_SHORT).show();
             return false;
         }
-
-        return true;
+        return true;*/
     }
 
     private View initializeDialogView() {
@@ -146,6 +156,21 @@ public class Activity_My_Word extends AppCompatActivity {
         //editTextWord.setOnT
 
         return v;
+    }
+
+    @Override
+    public void showWarningMessage(String message) {
+        Toast.makeText(Activity_My_Word.this,"Word is missing",Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void showSuccessMessage(String message) {
+        Toast.makeText(Activity_My_Word.this,"Word is missing",Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void closeDialog() {
+
     }
 
     public static class MyPagerAdapter extends FragmentPagerAdapter {
