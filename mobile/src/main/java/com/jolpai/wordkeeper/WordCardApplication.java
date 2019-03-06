@@ -1,16 +1,17 @@
 package com.jolpai.wordkeeper;
 
+import android.app.Application;
+
 import com.facebook.stetho.Stetho;
 
-import dagger.android.AndroidInjector;
-import dagger.android.DaggerApplication;
+
 import io.realm.Realm;
 
 /**
  * Created by Tanim reja on 10/10/2016.
  */
 
-public class WordCardApplication extends DaggerApplication {
+public class WordCardApplication extends Application {
 
     public void onCreate() {
         super.onCreate();
@@ -19,10 +20,7 @@ public class WordCardApplication extends DaggerApplication {
         Realm.init(this);
     }
 
-    @Override
-    protected AndroidInjector<? extends DaggerApplication> applicationInjector() {
-        return null;
-    }
+
 
 
 }

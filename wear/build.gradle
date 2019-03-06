@@ -2,13 +2,13 @@ apply plugin: 'com.android.application'
 
 
 android {
-    compileSdkVersion 24
-    buildToolsVersion '26.0.2'
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
 
     defaultConfig {
         applicationId "com.jolpai.wordkeeper"
-        minSdkVersion 19
-        targetSdkVersion 24
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
     }
@@ -21,7 +21,7 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.google.android.support:wearable:2.0.0-alpha2'
-    compile 'com.google.android.gms:play-services-wearable:9.4.0'
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'com.google.android.support:wearable:2.0.0-alpha2'
+    implementation 'com.google.android.gms:play-services-wearable:9.4.0'
 }
