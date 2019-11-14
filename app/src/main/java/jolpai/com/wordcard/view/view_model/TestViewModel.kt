@@ -15,4 +15,6 @@ class TestViewModel : ViewModel() {
         liveWordList.value = wordList
         return liveWordList
     }
+
+     var name = "Tanim Reja"
 }
